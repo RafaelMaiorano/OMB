@@ -36,14 +36,13 @@ namespace OMB_Desktop.ViewModel
             set { Set(() => Password, ref _password, value); }
         }
 
-
-
-
-        public InteractionRequest<INotification> FaltanDatos { get; set; }
+    public InteractionRequest<INotification> FaltanDatos { get; set; }
 
     public InteractionRequest<INotification> CredencialesInvalidas { get; set; }
 
     public RelayCommand LoginCommand { get; set; }
+
+    public ICommand BorrarEntradas { get; set; }
 
     public INotification Notification { get; set; }
 
@@ -57,12 +56,18 @@ namespace OMB_Desktop.ViewModel
       LoginCommand = new RelayCommand (DoLogin);
 
       FaltanDatos = new InteractionRequest<INotification>();
+
       CredencialesInvalidas = new InteractionRequest<INotification>();
+
+      BorrarEntradas = new RelayCommand(() =>
+                   {
+                       LoginID = null;
+                       Password = null;
+                   });
     }
 
        
-
-        public void DoLogin()
+    public void DoLogin()
     {
       SecurityServices seg = new SecurityServices();
 
